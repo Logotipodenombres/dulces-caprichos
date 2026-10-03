@@ -84,15 +84,15 @@ window.SITE_DATA = {
   <script defer>
 const data = window.SITE_DATA;
 const $ = (selector, scope = document) => scope.querySelector(selector);
-const $ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 
 function hydrateBusiness() {
-  $('[data-name]').forEach((el) => el.textContent = data.business.name);
-  $('[data-subtitle]').forEach((el) => el.textContent = data.business.subtitle);
-  $('[data-phone]').forEach((el) => el.textContent = data.business.displayPhone);
-  $('[data-call]').forEach((el) => el.href = `tel:${data.business.phone}`);
+  $$('[data-name]').forEach((el) => el.textContent = data.business.name);
+  $$('[data-subtitle]').forEach((el) => el.textContent = data.business.subtitle);
+  $$('[data-phone]').forEach((el) => el.textContent = data.business.displayPhone);
+  $$('[data-call]').forEach((el) => el.href = `tel:${data.business.phone}`);
   Object.entries(data.social).forEach(([network, url]) => {
-    $(`[data-social="${network}"]`).forEach((el) => el.href = url);
+    $$(`[data-social="${network}"]`).forEach((el) => el.href = url);
   });
 }
 
@@ -108,8 +108,8 @@ function buildGallery() {
 
   let current = 0;
   let timer;
-  const slides = $('.gallery-card', track);
-  const buttons = $('.dot', dots);
+  const slides = $$('.gallery-card', track);
+  const buttons = $$('.dot', dots);
   const go = (index, behavior = 'smooth') => {
     current = (index + slides.length) % slides.length;
     track.scrollTo({ left: slides[current].offsetLeft - track.offsetLeft, behavior });
@@ -167,7 +167,7 @@ function setupShare() {
 }
 
 function setupReveal() {
-  const items = $('.reveal');
+  const items = $$('.reveal');
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return items.forEach((item) => item.classList.add('visible'));
   const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
     if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
@@ -177,7 +177,7 @@ function setupReveal() {
 
 function setupInstall() {
   let installPrompt = null;
-  const buttons = $('[data-install]');
+  const buttons = $$('[data-install]');
   const guide = $('#install-guide');
   const message = $('#install-message');
   const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
