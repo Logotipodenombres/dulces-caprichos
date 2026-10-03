@@ -207,12 +207,14 @@ function setupInstall() {
 
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
 
-hydrateBusiness();
-buildGallery();
-buildCategories();
-setupShare();
-setupReveal();
-setupInstall();
+document.addEventListener('DOMContentLoaded', () => {
+  hydrateBusiness();
+  buildGallery();
+  buildCategories();
+  setupShare();
+  setupReveal();
+  setupInstall();
+});
 
 </script>
 </head>
